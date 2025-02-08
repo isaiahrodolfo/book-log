@@ -16,10 +16,10 @@ export default function Books() {
   const router = useRouter();
 
   async function Search() {
-    setLoading(true);
-
     // Do not search for empty queries
     if (!query.trim()) return;
+
+    setLoading(true);
 
     try {
       const data = await getBooks(query, 30); // Fetch books
@@ -62,8 +62,8 @@ export default function Books() {
         <ScrollView>
           {books.map((book) => {
             return (
-              <View key={book.key} style={{ alignItems: "center", marginBottom: 10 }}>
-                <BookItem book={book} onPress={() => router.push(`${book.key.substring(6)}`)} />
+              <View key={book.key} style={styles.container}>
+                <BookItem book={book} onPress={() => router.push(`/books/bookDetail?key=${book.key.substring(7)}&title=${encodeURIComponent(book.title)}`)} />
               </View>
             );
           })}
@@ -75,4 +75,11 @@ export default function Books() {
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10
+  },
+});
