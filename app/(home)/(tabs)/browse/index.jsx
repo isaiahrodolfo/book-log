@@ -63,7 +63,7 @@ export default function Books() {
           {books.map((book) => {
             return (
               <View key={book.key} style={styles.container}>
-                <BookItem book={book} onPress={() => router.push(`/books/bookDetail?key=${book.key.substring(7)}&title=${encodeURIComponent(book.title)}`)} />
+                <BookItem book={book} onPress={() => router.push(`/browse/bookDetail?key=${book.key.substring(7)}&title=${encodeURIComponent(book.title)}`)} />
               </View>
             );
           })}

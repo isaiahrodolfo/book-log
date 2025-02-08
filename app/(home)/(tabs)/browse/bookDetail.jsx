@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
-import { View, Text, Spinner, ScrollView } from 'tamagui';
+import { View, Text, Spinner, ScrollView, H2, H4 } from 'tamagui';
 import { getBookData } from '@/api/books';
 
-import { H2 } from 'tamagui';
+import SubjectTag from '@/components/SubjectTag';
 
 export default function BookDetail() {
   const { title, key } = useLocalSearchParams();
@@ -26,7 +26,7 @@ export default function BookDetail() {
 
         setBookData({
           ...data,
-          has_description: typeof data.description === 'string',
+          has_desciption: typeof (data.description) == 'string'
         });
 
       } catch (error) {
@@ -48,7 +48,15 @@ export default function BookDetail() {
       {!loading && bookData ? (
         <>
           <H2>{title}</H2>
-          <Text>{bookData.has_description ? bookData.description : "No description available"}</Text>
+          {bookData.has_desciption ? <Text>{bookData.description}</Text> : <Text>No description available</Text>}
+          {bookData.subjects && (
+            <>
+              <H4>Subjects</H4>
+              {bookData.subjects.map((subject, index) => (
+                <SubjectTag key={index} subject={subject} />
+              ))}
+            </>
+          )}
         </>
       ) : (
         !loading && <Text>Error loading book data.</Text>

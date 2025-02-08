@@ -11,6 +11,7 @@ module.exports = function (api) {
           logTimings: true,
           disableExtraction: process.env.NODE_ENV === 'development',
         },
+        "@babel/plugin-transform-react-jsx"
       ],
 
       // NOTE: this is only necessary if you are using reanimated for animations
